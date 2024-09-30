@@ -1,25 +1,32 @@
-import { fetchStarships } from "@/shared/data/fetchStarships";
+import { Suspense } from "react";
+import { Await } from "../components/await/Await";
+import { ErrorMessage } from "../components/error/Error";
+import { Paginate } from "../components/paginate/Paginate";
 import { StarshipList } from "../components/starships/StarshipList";
 
+import { fetchStarships } from "@/shared/data/fetchStarships";
+
 export default async function Home({
-  params,
   searchParams,
 }: {
-  params: { slug: string };
   searchParams: { page: string; limit: string };
 }) {
-  console.log(">>> params: ", params);
-  console.log(">>> searchParams: ", searchParams);
+  const promise = fetchStarships({ searchParams });
 
-  const starships = await fetchStarships();
-
-  if (starships instanceof Error) {
-    return <>Soemthing went wrong!</>;
-  }
-
-  if (starships.count === 0 || starships.results.length === 0) {
-    return <>No starships!</>;
-  }
-
-  return <StarshipList starships={starships.results} />;
+  return (
+    <Suspense fallback={<>Loading ...</>}>
+      <Await promise={promise}>
+        {(starships) =>
+          starships instanceof Error ? (
+            <ErrorMessage error={starships} />
+          ) : (
+            <>
+              <StarshipList starships={starships.results} />
+              <Paginate next={starships.next} previous={starships.previous} />
+            </>
+          )
+        }
+      </Await>
+    </Suspense>
+  );
 }
