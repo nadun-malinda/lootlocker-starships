@@ -27,22 +27,23 @@ export function Paginate({ next, previous }: PaginateProps) {
 
   const handlePagination = (direction: "next" | "previous") => {
     const page = parseInt(searchParams.get("page") || FIRST_PAGE_NUMBER);
-    const limit = parseInt(searchParams.get("limit") || STARSHIP_RESULT_LIMIT);
+    const limit = searchParams.get("limit") || STARSHIP_RESULT_LIMIT;
+    const search = searchParams.get("search") || "";
 
     // Calculate the updated page number based on the direction
     const updatedPage = direction === "next" ? page + 1 : page - 1;
 
-    // Construct the new URL with updated page and limit
-    router.push(
-      createQueryStringWithPath(pathname, {
-        page: updatedPage.toString(),
-        limit: limit.toString(),
-      })
-    );
+    const url = createQueryStringWithPath(pathname, {
+      page: updatedPage.toString(),
+      limit,
+      search: search || null, // Pass `null` to remove "search" if search text is empty
+    });
+
+    router.push(url);
   };
 
   return (
-    <div className="inline-flex gap-1 mt-8">
+    <div className="inline-flex gap-1">
       <Button onClick={() => handlePagination("previous")} disabled={!previous}>
         Previous
       </Button>
