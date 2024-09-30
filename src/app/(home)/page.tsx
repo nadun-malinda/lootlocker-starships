@@ -1,11 +1,13 @@
 import { Suspense } from "react";
-import { Await } from "../components/await/Await";
-import { ErrorMessage } from "../components/error/ErrorMessage";
-import { Paginate } from "../components/paginate/Paginate";
-import { StarshipList } from "../components/starships/StarshipList";
+
+import { Await } from "@/app/components/await/Await";
+import { Search } from "@/app/components/search/Search";
+import { Loading } from "@/app/components/loading/Loading";
+import { Paginate } from "@/app/components/paginate/Paginate";
+import { ErrorMessage } from "@/app/components/error/ErrorMessage";
+import { StarshipList } from "@/app/components/starships/StarshipList";
 
 import { fetchStarships } from "@/shared/data/fetchStarships";
-import { Search } from "../components/search/Search";
 
 export default async function Home({
   searchParams,
@@ -20,7 +22,7 @@ export default async function Home({
         <Search />
       </Suspense>
 
-      <Suspense fallback={<>Loading ...</>}>
+      <Suspense fallback={<Loading />}>
         <Await promise={promise}>
           {(starships) =>
             starships instanceof Error ? (

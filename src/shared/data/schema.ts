@@ -3,6 +3,7 @@ export interface StarshipResult {
   manufacturer: string;
   crew: string;
   created: Date;
+  url: string;
 }
 
 export interface StarshipsResponse {
