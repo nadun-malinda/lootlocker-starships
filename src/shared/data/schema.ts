@@ -1,4 +1,4 @@
-interface StarshipResult {
+export interface StarshipResult {
   name: string;
   manufacturer: string;
   crew: string;
