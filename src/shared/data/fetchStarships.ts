@@ -19,6 +19,7 @@ export async function fetchStarships({
 }): Promise<StarshipsResponse | Error> {
   // Default to FIRST_PAGE_NUMBER and STARSHIP_RESULT_LIMIT if not provided
   const updatedSearchParams = {
+    ...searchParams,
     page: searchParams.page || FIRST_PAGE_NUMBER,
     limit: searchParams.limit || STARSHIP_RESULT_LIMIT,
   };

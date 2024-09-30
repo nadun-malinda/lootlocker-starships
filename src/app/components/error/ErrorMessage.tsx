@@ -15,7 +15,7 @@ export function ErrorMessage({
 }): JSX.Element {
   return (
     <div className="flex">
-      <h2 className="text-md text-white mb-8">
+      <h2 className="text-base text-white my-8">
         {message || error?.message || "An unexpected error occurred."}
       </h2>
     </div>
