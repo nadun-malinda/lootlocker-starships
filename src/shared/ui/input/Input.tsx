@@ -1,3 +1,5 @@
+"use client";
+
 interface InputProps {
   placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
