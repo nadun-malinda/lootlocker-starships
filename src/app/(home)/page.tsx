@@ -16,7 +16,9 @@ export default async function Home({
 
   return (
     <>
-      <Search />
+      <Suspense>
+        <Search />
+      </Suspense>
 
       <Suspense fallback={<>Loading ...</>}>
         <Await promise={promise}>
