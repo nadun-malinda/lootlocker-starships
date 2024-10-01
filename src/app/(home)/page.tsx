@@ -22,7 +22,7 @@ export default async function Home({
         <Search />
       </Suspense>
 
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<Loading />} key={searchParams.page}>
         <Await promise={promise}>
           {(starships) =>
             starships instanceof Error ? (
